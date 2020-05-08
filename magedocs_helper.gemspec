@@ -22,6 +22,12 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'kramdown'
   spec.add_dependency 'launchy'
   spec.add_dependency 'colorator'
+  spec.add_dependency 'rake'
+  spec.add_dependency 'whatsup_github'
+  spec.add_dependency 'mdl', '= 0.7.0'
+  spec.add_dependency 'image_optim'
+  spec.add_dependency 'image_optim_pack'
+
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

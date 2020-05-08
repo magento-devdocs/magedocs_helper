@@ -15,7 +15,7 @@ namespace :check do
       abort 'Didn\'t find any modified files.'.blue if image_files_to_check.empty?
       path = image_files_to_check.join(' ')
     end
-    system "bin/image_optim --no-pngout --no-svgo --recursive #{path}"
+    system "bundle exec image_optim --no-pngout --no-svgo --recursive #{path}"
   end
 
   desc 'Check Markdown syntax in modified files or in a particular file or directory by path (e.g. path=src/mftf)'
@@ -30,7 +30,7 @@ namespace :check do
       abort 'Cannot find any modified .md files.'.magenta if md_files_to_check.empty?
       path = md_files_to_check.join(' ')
     end
-    report = `bin/mdl #{path}`
+    report = `bundle exec mdl #{path}`
     puts report.yellow
     puts 'The rules are defined in _checks/styles/style-rules-dev'.magenta
   end

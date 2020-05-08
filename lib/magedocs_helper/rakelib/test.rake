@@ -5,7 +5,7 @@
 
 namespace :test do
   # Run html-proofer to check for broken links
-  desc 'Build devdocs and check for broken links'
+  desc 'Build the site and check for broken links'
   task links: %w[build links_no_build]
 
   # Run htmlproofer to check for broken external links
@@ -54,9 +54,9 @@ namespace :test do
   task :md do
     puts 'Testing Markdown style with mdl ...'.magenta
     print 'List the rules: $ '.magenta
-    sh 'bin/mdl -l --style=_checks/styles/style-rules-prod'
+    sh 'bundle exec mdl -l --style=_checks/styles/style-rules-prod'
     puts 'Linting ...'.magenta
-    output = `bin/mdl --style=_checks/styles/style-rules-prod --ignore-front-matter --git-recurse -- .`
+    output = `bundle exec mdl --style=_checks/styles/style-rules-prod --ignore-front-matter --git-recurse -- .`
     puts output.yellow
     abort "The Markdown linter detected #{output.lines.count - 2} issue(s)".red unless output.empty?
     puts 'No issues found'.magenta
