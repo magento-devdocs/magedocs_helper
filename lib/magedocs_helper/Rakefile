@@ -6,43 +6,27 @@
 # This file contains tasks with no namespace.
 # All namespaced tasks are defined in the '../rakelib' directory.
 # Each namespace is defined in a separate file.
-# For example, 'preview:all' is defined in the '../rakelib/preview.rake' file.
+# For example, 'test:md' is defined in the '../rakelib/test.rake' file.
 # To see the list of tasks to use, run 'rake -T'.
 
+require 'colorator'
 require 'html-proofer'
 require 'kramdown'
 require 'launchy'
-require 'colorator'
+require 'magedocs_helper'
+
+# Load rake tasks from 'rakelib/'
+path = File.expand_path(__dir__)
+Dir.glob("#{path}/rakelib/**/*.rake").each { |f| import f }
 
 # Require helper methods from the 'lib' directory
 Dir.glob('lib/**/*.rb') { |file| require_relative(file) }
-
-require 'magedocs_helper'
-
-path = File.expand_path(__dir__)
-Dir.glob("#{path}/rakelib/**/*.rake").each { |f| import f }
 
 desc "Same as 'rake', 'rake preview'"
 task default: %w[preview]
 
 desc "Same as 'test:report'"
-task test: %w[test:report]
-
-desc 'Preview the site locally'
-task preview: %w[install clean] do
-  puts 'Generating site locally ... '.magenta
-  if File.exist?('_config.local.yml')
-    print 'enabled the additional configuration parameters from _config.local.yml: $ '.magenta
-    sh 'bundle exec jekyll serve --incremental \
-                                 --open-url \
-                                 --livereload \
-                                 --trace \
-                                 --config _config.yml,_config.local.yml \
-                                 --plugins _plugins,_checks'
-  else
-    Rake::Task['preview:all'].invoke
-  end
-end
+task test: %w[test:md test:report]
 
 task :clean do
   print 'Cleaning after the last site generation: $ '.magenta
@@ -55,16 +39,6 @@ task :install do
   sh 'bundle install'
   puts 'Installed!'.green
 end
-
-desc 'Build the entire website'
-task build: %w[clean] do
-  print 'Building the site with Jekyll: $ '.magenta
-  sh 'bundle exec jekyll build --verbose --trace'
-  puts 'Built!'.green
-end
-
-desc 'Pull docs from external repositories'
-task init: %w[multirepo:init]
 
 desc 'Run checks (image optimization and Markdown style linting).'
 task check: %w[check:image_optim check:mdl]
@@ -80,14 +54,6 @@ task :whatsnew do
   else
     puts 'The "since" argument must be a string. Example: "jul 4"'
   end
-end
-
-desc 'Generate index for Algolia'
-task index: %w[init] do
-  puts 'Generating index for Algolia ...'
-  sh 'bundle exec jekyll',
-        'algolia',
-          '--config=_config.yml,_config.index.yml'
 end
 
 desc 'Convert HTML text to kramdown in your terminal'
