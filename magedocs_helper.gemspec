@@ -9,24 +9,22 @@ Gem::Specification.new do |spec|
   spec.summary       = %q{rake tasks for Magento docs}
   spec.description   = %q{Helper tooling such as rake commands for Magento documentation projects.}
   spec.homepage      = 'https://github.com/magento-devdocs/magedocs_helper'
-  spec.license       = "MIT"
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
-
-  # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  spec.license       = "OSL"
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.4.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = 'https://github.com/magento-devdocs/magedocs_helper'
-  # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["changelog_uri"] = 'https://github.com/magento-devdocs/magedocs_helper/CHANGELOG.md'
 
-  spec.add_dependency 'html-proofer'
-  spec.add_dependency 'kramdown'
-  spec.add_dependency 'launchy'
   spec.add_dependency 'colorator'
-  spec.add_dependency 'rake'
-  spec.add_dependency 'whatsup_github'
-  spec.add_dependency 'mdl', '= 0.7.0'
+  spec.add_dependency 'html-proofer'
   spec.add_dependency 'image_optim'
   spec.add_dependency 'image_optim_pack'
+  spec.add_dependency 'kramdown'
+  spec.add_dependency 'launchy'
+  spec.add_dependency 'mdl', '= 0.7.0'
+  spec.add_dependency 'rake'
+  spec.add_dependency 'whatsup_github'
 
 
   # Specify which files should be added to the gem when it is released.
